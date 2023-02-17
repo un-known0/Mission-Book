@@ -1,6 +1,9 @@
 <p>성공</p>
 {% if context.user_id %}
 <p>로그인한 유저 아이디: {{ context.user_id }}</p>
+<a href="{% url 'profile' %}">프로필 변경하기</a>
+
+
 {% else %}
 <p>로그인하지 않은 유저</p>
 {% endif %}

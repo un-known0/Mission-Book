@@ -35,3 +35,9 @@ class MemberCreationForm(UserCreationForm):
 class LoginForm(forms.Form):
     user_id = forms.CharField(label='아이디')
     password = forms.CharField(label='비밀번호', widget=forms.PasswordInput)
+
+
+class ChangeProfileForm(forms.ModelForm):
+    class Meta:
+        model = Member
+        fields = ['profile_image']
