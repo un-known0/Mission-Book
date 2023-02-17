@@ -1,0 +1,7 @@
+<p>성공</p>
+{% if context.user_id %}
+<p>로그인한 유저 아이디: {{ context.user_id }}</p>
+{% else %}
+<p>로그인하지 않은 유저</p>
+{% endif %}
+<a href="{% url 'login' %}">로그인 화면으로</a>
