@@ -6,7 +6,7 @@ from django.views.generic import View
 import pdb
 from PIL import Image
 import os, io
-from django.core.files.uploadedfile import InMemoryUploadedFile
+
 
 def join(request):
     if request.method == 'POST':
