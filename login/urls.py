@@ -10,4 +10,6 @@ urlpatterns = [
     path('profile/',views.profile, name='profile'),
     path('change_profile/',views.change_profile, name='change_profile'),
     path('change_name/',views.change_name,name='change_name'),
+    path('select_title/',views.select_title, name='select_title'),
+    path('change_title/<int:title>/',views.change_title, name='change_title'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

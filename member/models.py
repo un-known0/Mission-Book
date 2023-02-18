@@ -53,7 +53,18 @@ class Member(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return self.is_superuser
     
+    def can_select_title(self, title):
+        if self.title == title:
+            return False
+        elif (self.int_stat >= title.need_int and
+              self.social_stat >= title.need_social and
+              self.exp_stat >= title.need_exp and
+              self.total_exp >= title.need_total_exp):
+            return True
+        else:
+            return False    
     
+
     
 
 class Title(models.Model):
@@ -62,5 +73,8 @@ class Title(models.Model):
     need_social = models.IntegerField()
     need_exp = models.IntegerField()
     need_total_exp = models.IntegerField()
+    
+    def __str__(self):
+        return self.name    
 
 

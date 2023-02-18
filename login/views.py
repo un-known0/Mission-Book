@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import login, authenticate
-from member.models import Member
+from member.models import Member, Title
 from member.forms import MemberCreationForm, LoginForm, ChangeProfileForm, ChangeNameForm
 from django.views.generic import View
 import pdb
@@ -119,3 +119,45 @@ def change_name(request):
     else: 
         form = ChangeNameForm()
     return render(request, 'change_name.html', {'form': form })
+
+
+
+def select_title(request):
+    user_id = None
+    if request.user.is_authenticated:
+        user_id = request.user.user_id
+
+    if not user_id:
+        return redirect('success')
+    
+    titles = Title.objects.all()
+
+    # Divide titles into selectable and non-selectable
+    selectable_titles = []
+    non_selectable_titles = []
+    for title in titles:
+        if request.user.can_select_title(title):
+            selectable_titles.append(title)
+        else:
+            non_selectable_titles.append(title)
+
+    context = {
+        'selectable_titles': selectable_titles,
+        'non_selectable_titles': non_selectable_titles,
+    }
+    return render(request, 'select_title.html', context)
+
+
+def change_title(request, title):
+    user_id = None
+    if request.user.is_authenticated:
+        user_id = request.user.user_id
+
+    if not user_id:
+        return redirect('success')
+    title = Title.objects.get(id=title)
+    if request.user.can_select_title(title):
+        member = Member.objects.get(user_id=user_id)
+        member.title = title
+        member.save()
+    return redirect(select_title)

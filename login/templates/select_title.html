@@ -1,0 +1,23 @@
+<h1>Select your title</h1>
+
+{% if user.title %}
+    <p>현재 칭호 : {{ user.title }}</p>
+{% endif %}
+
+<h2>변경가능한 칭호</h2>
+<ul>
+    {% for title in selectable_titles %}
+        <li><a href="{% url 'change_title' title.id %}?title_id={{ title.id }}">{{ title }}</a></li>
+    {% empty %}
+        <li>No selectable titles</li>
+    {% endfor %}
+</ul>
+
+<h2>변경불가능한 칭호</h2>
+<ul>
+    {% for title in non_selectable_titles %}
+        <li>{{ title }}</li>
+    {% empty %}
+        <li>No non-selectable titles</li>
+    {% endfor %}
+</ul>
