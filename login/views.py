@@ -161,3 +161,18 @@ def change_title(request, title):
         member.title = title
         member.save()
     return redirect(select_title)
+
+
+def change_title_color(request, color):
+    user_id = None
+    if request.user.is_authenticated:
+        user_id = request.user.user_id
+
+    if not user_id:
+        return redirect('success')
+    
+    if 0<=color<6:
+        member = Member.objects.get(user_id=user_id)
+        member.title_color = color
+        member.save()
+    return redirect(select_title)

@@ -2,7 +2,18 @@
 
 {% if user.title %}
     <p>현재 칭호 : {{ user.title }}</p>
+    <p>현재 칭호 색상 : {{user.title_color}} </p>
 {% endif %}
+
+<h2>색상 선택</h2>
+<ul>
+    <li><a href="{% url 'change_title_color' 0 %}">색상1</a></li>
+    <li><a href="{% url 'change_title_color' 1 %}">색상2</a></li>
+    <li><a href="{% url 'change_title_color' 2 %}">색상3</a></li>
+    <li><a href="{% url 'change_title_color' 3 %}">색상4</a></li>
+    <li><a href="{% url 'change_title_color' 4 %}">색상5</a></li>
+    <li><a href="{% url 'change_title_color' 5 %}">색상6</a></li>
+</ul>
 
 <h2>변경가능한 칭호</h2>
 <ul>
@@ -21,3 +32,5 @@
         <li>No non-selectable titles</li>
     {% endfor %}
 </ul>
+
+<a href="{% url 'profile' %}">프로필로 돌아가기</a>

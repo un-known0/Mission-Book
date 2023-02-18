@@ -12,4 +12,5 @@ urlpatterns = [
     path('change_name/',views.change_name,name='change_name'),
     path('select_title/',views.select_title, name='select_title'),
     path('change_title/<int:title>/',views.change_title, name='change_title'),
+    path('change_title_color/<int:color>/',views.change_title_color, name='change_title_color'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
