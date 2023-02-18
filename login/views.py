@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from member.models import Member, Title
 from member.forms import MemberCreationForm, LoginForm, ChangeProfileForm, ChangeNameForm
 from django.views.generic import View
@@ -48,6 +48,11 @@ class LoginView(View):
             else:
                 form.add_error('user_id', '아이디 또는 비밀번호가 일치하지 않습니다.')
         return render(request, 'login.html', {'form': form})
+    
+
+def logout_member(request):
+    logout(request)
+    return redirect('/login/')
     
 
 def profile(request):
