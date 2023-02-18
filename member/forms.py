@@ -41,3 +41,9 @@ class ChangeProfileForm(forms.ModelForm):
     class Meta:
         model = Member
         fields = ['profile_image']
+
+
+class ChangeNameForm(forms.ModelForm):
+    class Meta:
+        model = Member
+        fields = ['name']

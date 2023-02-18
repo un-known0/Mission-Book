@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import login, authenticate
 from member.models import Member
-from member.forms import MemberCreationForm, LoginForm, ChangeProfileForm
+from member.forms import MemberCreationForm, LoginForm, ChangeProfileForm, ChangeNameForm
 from django.views.generic import View
 import pdb
 from PIL import Image
@@ -99,3 +99,23 @@ def change_profile(request):
     return render(request, 'change_profile.html', {'form': form })
 
 
+
+def change_name(request):
+    user_id = None
+    if request.user.is_authenticated:
+        user_id = request.user.user_id
+
+    if not user_id:
+        return redirect('success')
+
+    if request.method == 'POST':
+        form = ChangeNameForm(request.POST)
+        if form.is_valid():
+            new_name = form.cleaned_data['name']
+            member = Member.objects.get(user_id=user_id)
+            member.name = new_name
+            member.save()
+            return redirect('profile')
+    else: 
+        form = ChangeNameForm()
+    return render(request, 'change_name.html', {'form': form })
