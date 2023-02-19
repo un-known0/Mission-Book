@@ -63,20 +63,7 @@ def profile(request):
     if not user_id:
         return redirect('success')
 
-    context = {
-        'user_id': user_id,
-        'name' : request.user.name,
-        'int_stat' : request.user.int_stat,
-        'social_stat' : request.user.social_stat,
-        'exp_stat' : request.user.exp_stat,
-        'total_exp' : request.user.total_exp,
-        'title' : request.user.title,
-        'title_color' : request.user.title_color,
-        'profile_image' : request.user.profile_image,
-    }
-
-
-    return render(request, 'profile.html', {"context":context})
+    return render(request, 'profile.html')
 
     
 def change_profile(request):

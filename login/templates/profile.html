@@ -1,13 +1,13 @@
 
-id : {{context.user_id}} <br>
-name : {{context.name}} <br>
-학업 : {{context.int_stat}} <br>
-사교 : {{context.social_stat}} <br>
-경험 : {{context.exp_stat}} <br>
-총 경험치 : {{context.total_exp}} <br>
-칭호 : {{context.title}} <br>
-칭호 색상 : {{context.title_color}} <br>
-프로필이미지 : <img src="/media/{{ context.profile_image }}" alt="프로필이미지"> <br>
+id : {{user.user_id}} <br>
+name : {{user.name}} <br>
+학업 : {{user.int_stat}} <br>
+사교 : {{user.social_stat}} <br>
+경험 : {{user.exp_stat}} <br>
+총 경험치 : {{user.total_exp}} <br>
+칭호 : {{user.title}} <br>
+칭호 색상 : {{user.title_color}} <br>
+프로필이미지 : <img src="/media/{{ user.profile_image }}" alt="프로필이미지"> <br>
 
 <a href="{% url 'change_profile' %}">프로필이미지 변경하기</a>
 <a href="{% url 'change_name' %}">닉네임 변경하기</a>
