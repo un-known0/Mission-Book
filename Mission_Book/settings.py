@@ -120,3 +120,7 @@ import os
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = '/media/'
+
+LANGUAGES = [    ('ko', 'Korean'),    ('en', 'English'),]
+
+LANGUAGE_CODE = 'ko-kr'

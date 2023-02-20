@@ -16,21 +16,27 @@ class MemberCreationForm(UserCreationForm):
         required=True,
         validators=[id_regex],
     )
-
-    def clean_id(self):
-        user_id = self.cleaned_data['id']
+    
+    def clean_user_id(self):
+        user_id = self.cleaned_data['user_id']
         if not user_id:
             raise forms.ValidationError('ID를 입력해주세요.')
-        return user_id    
+        try:
+            Member.objects.get(user_id=user_id)
+        except Member.DoesNotExist:
+            return user_id
+        raise forms.ValidationError("이미 존재하는 ID입니다.")        
 
     def clean(self):
         cleaned_data = super().clean()
-        password1 = cleaned_data.get('password1')
-        password2 = cleaned_data.get('password2')
-        if password1 and password2 and password1 != password2:
-            raise forms.ValidationError('비밀번호확인이 일치하지 않습니다.')
+        password = cleaned_data.get('password1')
+        confirm_password = cleaned_data.get('password2')
+        # import pdb
+        # pdb.set_trace()
+        if password and confirm_password and password != confirm_password:
+            raise forms.ValidationError("두 비밀번호가 일치하지 않습니다.")
         return cleaned_data
-    
+        
 
 class LoginForm(forms.Form):
     user_id = forms.CharField(label='아이디')
