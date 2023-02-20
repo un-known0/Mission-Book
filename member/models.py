@@ -64,17 +64,37 @@ class Member(AbstractBaseUser):
         else:
             return False    
     
-
+    def can_graduation(self, graduation):
+        if (self.int_stat >= graduation.need_int and
+              self.social_stat >= graduation.need_social and
+              self.exp_stat >= graduation.need_exp and
+              self.total_exp >= graduation.need_total_exp):
+            return True
+        else:
+            return False
+        
+        
     
 
 class Title(models.Model):
     name = models.TextField()
-    need_int = models.IntegerField()
-    need_social = models.IntegerField()
-    need_exp = models.IntegerField()
-    need_total_exp = models.IntegerField()
+    need_int = models.IntegerField(default=0)
+    need_social = models.IntegerField(default=0)
+    need_exp = models.IntegerField(default=0)
+    need_total_exp = models.IntegerField(default=0)
     
     def __str__(self):
         return self.name    
 
 
+class Graduation(models.Model):
+    name = models.TextField()
+    content = models.TextField()
+    need_int = models.IntegerField(default=0)
+    need_social = models.IntegerField(default=0)
+    need_exp = models.IntegerField(default=0)
+    need_total_exp = models.IntegerField(default=0)
+    order = models.FloatField()
+    
+    def __str__(self):
+        return self.name     

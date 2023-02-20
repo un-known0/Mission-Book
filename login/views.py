@@ -1,11 +1,16 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import login, authenticate, logout
-from member.models import Member, Title
+from member.models import Member, Title, Graduation
 from member.forms import MemberCreationForm, LoginForm, ChangeProfileForm, ChangeNameForm
 from django.views.generic import View
+from django.http import HttpResponse
 import pdb
 from PIL import Image
 import os, io
+import datetime
+
+
+this_year = 2023
 
 
 def join(request):
@@ -53,27 +58,37 @@ class LoginView(View):
 def logout_member(request):
     logout(request)
     return redirect('/login/')
-    
 
-def profile(request):
+
+def is_login(request):
     user_id = None
     if request.user.is_authenticated:
         user_id = request.user.user_id  # 혹은 request.user.username 등 로그인한 유저의 정보를 사용
 
     if not user_id:
         return redirect('success')
+    
+    if datetime.datetime.now().year!=this_year:
+        return frashman_graduation(request)
 
+    return 0
+    
+
+def profile(request):
+    login = is_login(request)
+    if login != 0:
+        return login
+    
     return render(request, 'profile.html')
 
     
 def change_profile(request):
-    user_id = None
-    if request.user.is_authenticated:
-        user_id = request.user.user_id  # 혹은 request.user.username 등 로그인한 유저의 정보를 사용
+    login = is_login(request)
+    if login != 0:
+        return login
 
-    if not user_id:
-        return redirect('success')
-
+    user_id = request.user.user_id
+    
     if request.method == 'POST':
         form = ChangeProfileForm(request.POST, request.FILES)
         if form.is_valid():
@@ -93,12 +108,9 @@ def change_profile(request):
 
 
 def change_name(request):
-    user_id = None
-    if request.user.is_authenticated:
-        user_id = request.user.user_id
-
-    if not user_id:
-        return redirect('success')
+    login = is_login(request)
+    if login != 0:
+        return login
 
     if request.method == 'POST':
         form = ChangeNameForm(request.POST)
@@ -115,12 +127,9 @@ def change_name(request):
 
 
 def select_title(request):
-    user_id = None
-    if request.user.is_authenticated:
-        user_id = request.user.user_id
-
-    if not user_id:
-        return redirect('success')
+    login = is_login(request)
+    if login != 0:
+        return login
     
     titles = Title.objects.all()
 
@@ -141,12 +150,12 @@ def select_title(request):
 
 
 def change_title(request, title):
-    user_id = None
-    if request.user.is_authenticated:
-        user_id = request.user.user_id
-
-    if not user_id:
-        return redirect('success')
+    login = is_login(request)
+    if login != 0:
+        return login
+    
+    user_id = request.user.user_id
+    
     title = Title.objects.get(id=title)
     if request.user.can_select_title(title):
         member = Member.objects.get(user_id=user_id)
@@ -156,15 +165,22 @@ def change_title(request, title):
 
 
 def change_title_color(request, color):
-    user_id = None
-    if request.user.is_authenticated:
-        user_id = request.user.user_id
+    login = is_login(request)
+    if login != 0:
+        return login
 
-    if not user_id:
-        return redirect('success')
+    user_id = request.user.user_id
     
     if 0<=color<6:
         member = Member.objects.get(user_id=user_id)
         member.title_color = color
         member.save()
     return redirect(select_title)
+
+
+def frashman_graduation(request):    
+    graduation = Graduation.objects.all().order_by('-order')
+    for g in graduation:
+        if request.user.can_graduation(g):
+            return render(request,"frashman_graduation.html",{"graduation":g})
+    
