@@ -15,8 +15,21 @@ class MemberCreationForm(UserCreationForm):
         max_length=20,
         required=True,
         validators=[id_regex],
+        widget=forms.TextInput(attrs={'placeholder': '아이디'}),
     )
-    
+    name = forms.CharField(
+        #20자 이내의 영문, 숫자, 하이픈, 언더스코어만 허용
+        max_length=10,
+        widget=forms.TextInput(attrs={'placeholder': '이름'}),
+    )
+    password1 = forms.CharField(
+        widget=forms.PasswordInput(attrs={'placeholder': '비밀번호'}),
+    )
+    password2 = forms.CharField(
+        widget=forms.PasswordInput(attrs={'placeholder': '비밀번호 확인'}),
+    )
+
+
     def clean_user_id(self):
         user_id = self.cleaned_data['user_id']
         if not user_id:
@@ -39,8 +52,14 @@ class MemberCreationForm(UserCreationForm):
         
 
 class LoginForm(forms.Form):
-    user_id = forms.CharField(label='아이디')
-    password = forms.CharField(label='비밀번호', widget=forms.PasswordInput)
+    user_id = forms.CharField(
+        label='아이디',
+        widget=forms.TextInput(attrs={'placeholder': '아이디'})
+    )
+    password = forms.CharField(
+        label='비밀번호',
+        widget=forms.PasswordInput(attrs={'placeholder': '비밀번호'})
+    )
 
 
 class ChangeProfileForm(forms.ModelForm):

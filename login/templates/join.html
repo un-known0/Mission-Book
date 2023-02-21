@@ -1,30 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
 
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>join</title>
+    <style>
+        @media screen and (max-width:765px) {
+            * {
+                font-family: 'Apple SD Gothic Neo';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 20px;
+                line-height: 24px;
+            }
 
-    <div>
-        <label for="{{ form.user_id.id_for_label }}">ID:</label><!-- 라벨 -->
+            body {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin: 0;
+            }
+
+            form h1 {
+                margin-top: 131px;
+                margin-bottom: 9px;
+                font-size: 27px;
+                line-height: 32px;
+                color: #666666;
+            }
+
+            form #info {
+                margin-top: 0;
+                margin-bottom: 55px;
+                color: #888888;
+            }
+
+            input {
+                box-sizing: border-box;
+                width: 300px;
+                height: 60px;
+                background: #FDFDFD;
+                border: 0.8px solid #C0C0C0;
+                border-radius: 10px;
+                margin-bottom: 19px;
+                padding: 18px;
+            }
+
+            input::placeholder {
+                color: #A7A7A7;
+            }
+
+            #wel {
+                display: flex;
+                justify-content: center;
+                margin-top: 34px;
+                margin-bottom: 11px;
+                font-size: 18px;
+                line-height: 22px;
+                color: #858484;
+            }
+
+            input[type="submit"] {
+                background: #F2F2F2;
+                margin-bottom: 175px;
+                color: #666666;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1>회원가입</h1>
+        <p id="info">정보를 입력하세요.</p>
         {{ form.user_id }}<!-- 입력폼 -->
-        {{ form.user_id.errors.0 }}<!-- 에러메세지 -->
-    </div>
-    <div>
-        <label for="{{ form.name.id_for_label }}">이름:</label>
+        {{ form.user_id.errors.0 }}<!-- 에러메세지 --><br />
         {{ form.name }}
-        {{ form.name.errors.0 }}
-    </div>
-    <div>
-        <label for="{{ form.password1.id_for_label }}">비밀번호:</label>
+        {{ form.name.errors.0 }}<br />
         {{ form.password1 }}
-        {{ form.password1.errors.0 }}
-    </div>
-    <div>
-        <label for="{{ form.password2.id_for_label }}">비밀번호 확인:</label>
+        {{ form.password1.errors.0 }}<br />
         {{ form.password2 }}
-        {{ form.password2.errors.0 }}
-    </div>
+        {{ form.password2.errors.0 }}<br />
+        <p id="wel">회원가입을 환영합니다!</p>
+        <input type="submit" name="join" value="회원가입" />
+    </form>
+</body>
 
-
-    <button type="submit">회원가입</button>
-</form>
-
-<a href="{% url 'login' %}">로그인화면으로</a>
+</html>
