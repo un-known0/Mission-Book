@@ -33,11 +33,13 @@ class MemberCreationForm(UserCreationForm):
     def clean_user_id(self):
         user_id = self.cleaned_data['user_id']
         if not user_id:
+            self.cleaned_data['user_id'] = ''
             raise forms.ValidationError('ID를 입력해주세요.')
         try:
             Member.objects.get(user_id=user_id)
         except Member.DoesNotExist:
             return user_id
+        self.cleaned_data['user_id'] = ''
         raise forms.ValidationError("이미 존재하는 ID입니다.")        
 
     def clean(self):

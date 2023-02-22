@@ -5,89 +5,146 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <title>join</title>
     <style>
-        @media screen and (max-width:765px) {
-            * {
-                font-family: 'Apple SD Gothic Neo';
-                font-style: normal;
-                font-weight: 700;
-                font-size: 20px;
-                line-height: 24px;
-            }
+        * {
+            font-family: 'Apple SD Gothic Neo';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 20px;
+            line-height: 24px;
+        }
 
-            body {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                margin: 0;
-            }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+        }
 
-            form h1 {
-                margin-top: 131px;
-                margin-bottom: 9px;
-                font-size: 27px;
-                line-height: 32px;
-                color: #666666;
-            }
+        form h1 {
+            margin-top: 131px;
+            margin-bottom: 9px;
+            font-size: 27px;
+            line-height: 32px;
+            color: #666666;
+        }
 
-            form #info {
-                margin-top: 0;
-                margin-bottom: 55px;
-                color: #888888;
-            }
+        form #info {
+            margin-top: 0;
+            margin-bottom: 55px;
+            color: #888888;
+        }
 
-            input {
-                box-sizing: border-box;
-                width: 300px;
-                height: 60px;
-                background: #FDFDFD;
-                border: 0.8px solid #C0C0C0;
-                border-radius: 10px;
-                margin-bottom: 19px;
-                padding: 18px;
-            }
+        input {
+            box-sizing: border-box;
+            width: 300px;
+            height: 60px;
+            background: #FDFDFD;
+            border: 0.8px solid #C0C0C0;
+            border-radius: 10px;
+            margin-bottom: 19px;
+            padding: 18px 0 18px 18px;
+        }
 
-            input::placeholder {
-                color: #A7A7A7;
-            }
+        /* 아이디 중복 오류시 적용될 css */
+        .joinIdError {
+            border: 1.5px solid #C74E4E
+        }
 
-            #wel {
-                display: flex;
-                justify-content: center;
-                margin-top: 34px;
-                margin-bottom: 11px;
-                font-size: 18px;
-                line-height: 22px;
-                color: #858484;
-            }
+        .joinIdError::placeholder {
+            color: #C74E4E;
+        }
 
-            input[type="submit"] {
-                background: #F2F2F2;
-                margin-bottom: 175px;
-                color: #666666;
-            }
+        /* 비밀번호 확인 일치 오류시 적용될 css */
+        .joinPasswordCheckError {
+            border: 1.5px solid #C74E4E;
+        }
 
+        .joinPasswordCheckError::placeholder {
+            color: #C74E4E;
+            font-size: 19px;
+        }
+
+        input::placeholder {
+            color: #A7A7A7;
+        }
+
+        #wel {
+            display: flex;
+            justify-content: center;
+            margin-top: 34px;
+            margin-bottom: 11px;
+            font-size: 18px;
+            line-height: 22px;
+            color: #858484;
+        }
+
+        input[type="submit"] {
+            background: #F2F2F2;
+            margin-bottom: 175px;
+            color: #666666;
         }
     </style>
 </head>
 
 <body>
-    <form method="POST" enctype="multipart/form-data">
+    <form method="post">
         {% csrf_token %}
         <h1>회원가입</h1>
         <p id="info">정보를 입력하세요.</p>
-        {{ form.user_id }}<!-- 입력폼 -->
-        {{ form.user_id.errors.0 }}<!-- 에러메세지 --><br />
-        {{ form.name }}
-        {{ form.name.errors.0 }}<br />
-        {{ form.password1 }}
-        {{ form.password1.errors.0 }}<br />
-        {{ form.password2 }}
-        {{ form.password2.errors.0 }}<br />
+
+        {{ form.user_id }}</br>
+        {% if form.user_id.errors %}
+        <script>
+            $('input[name=user_id]').attr('value', '');
+            $('input[name=user_id]').attr('placeholder', '{{ form.user_id.errors.0 }}');
+            $('input[name=user_id]').addClass('joinIdError');
+        </script>
+        {% endif %}
+
+        {{ form.name }}<br />
+        {% if form.name.errors %}
+        <script>
+            $('input[name=name]').attr('value', '');
+            $('input[name=name]').attr('placeholder', '{{ form.name.errors.0 }}');
+            $('input[name=name]').addClass('joinIdError');
+        </script>
+        {% endif %}
+
+        {{ form.password1 }}<br />
+        {% if form.password1.errors %}
+        <script>
+            $('input[name=password1]').attr('placeholder', '{{ form.password1.errors.0 }}');
+            $('input[name=password1]').addClass('joinIdError');
+        </script>
+        {% endif %}
+
+        {{ form.password2 }}<br />
+        {% if form.password2.errors %}
+        <script>
+            $('input[name=password2]').attr('placeholder', '{{ form.password2.errors.0 }}');
+            $('input[name=password2]').addClass('joinIdError');
+        </script>
+        {% endif %}
+
         <p id="wel">회원가입을 환영합니다!</p>
         <input type="submit" name="join" value="회원가입" />
     </form>
+    <!-- <script>
+        let bool = true;
+
+
+        if(bool){
+            $('input[name=joinPasswordCheck]').attr('placeholder','비밀번호가 일치하지 않습니다.');
+            $('input[name=joinPasswordCheck]').addClass('joinPasswordCheckError');
+        }
+        $('input[name=joinPasswordCheck]').click(()=>{
+            $('input[name=joinPasswordCheck]').attr('placeholder','비밀번호 확인');
+            $('input[name=joinPasswordCheck]').removeClass('joinPasswordCheckError'); 
+        });
+    </script> -->
 </body>
 
 </html>

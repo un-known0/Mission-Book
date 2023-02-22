@@ -1,93 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>login</title>
     <style>
-        *{
+        * {
             font-family: 'Apple SD Gothic Neo';
             font-style: normal;
             font-weight: 700;
             font-size: 20px;
             line-height: 24px;
         }
-        @media screen and (max-width:765px){
-            body{
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                flex-direction: column;
-                margin: 0;
-            }
-            div{
-                margin-top: 166px;
-                width: 68px;
-                height: 68px;
-                background: #F5F5F5;
-                border: 0.5px solid #C0C0C0;
-                border-radius: 35px;
-            }
-            h1{
-                margin-top: 35px;
-                margin-bottom: 5px;
-                font-family: 'Apple SD Gothic Neo';
-                font-style: normal;
-                font-weight: 900;
-                font-size: 28px;
-                line-height: 34px;
-            }
-            p{
-                margin-top: 0;
-                margin-bottom: 122px;
-                font-style: normal;
-                font-weight: 700;
-                font-size: 18px;
-                line-height: 22px;
-                color: #666666;
-            }
-            input{
-                box-sizing: border-box;
-                width: 300px;
-                height: 60px;
-                background: #FDFDFD;
-                border: 0.8px solid #C0C0C0;
-                border-radius: 10px;
-                margin-bottom: 12px;
-                padding: 18px;
-            }
-            input::placeholder{
-                color: #A7A7A7;
-            }
-            input[type="submit"]{
-                background: #F2F2F2;
-                margin-top: 48px;
-                margin-bottom: 12px;
-                color: #666666;
-            }
-            a{
-                color: #666666;
-                text-decoration: none;
-                margin-bottom: 148px;
-                font-size: 15px;
-                line-height: 18px;
-            }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 0;
         }
 
+        div {
+            margin-top: 166px;
+            width: 68px;
+            height: 68px;
+            background: #F5F5F5;
+            border: 0.5px solid #C0C0C0;
+            border-radius: 35px;
+        }
+
+        h1 {
+            margin-top: 35px;
+            margin-bottom: 5px;
+            font-family: 'Apple SD Gothic Neo';
+            font-style: normal;
+            font-weight: 900;
+            font-size: 28px;
+            line-height: 34px;
+        }
+
+        p {
+            margin-top: 0;
+            margin-bottom: 122px;
+            font-style: normal;
+            font-weight: 700;
+            font-size: 18px;
+            line-height: 22px;
+            color: #666666;
+        }
+
+        input {
+            box-sizing: border-box;
+            width: 300px;
+            height: 60px;
+            background: #FDFDFD;
+            border: 0.8px solid #C0C0C0;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            padding: 18px;
+        }
+
+        input::placeholder {
+            color: #A7A7A7;
+        }
+
+        input[type="submit"] {
+            background: #F2F2F2;
+            margin-top: 48px;
+            margin-bottom: 12px;
+            color: #666666;
+        }
+
+        a {
+            color: #666666;
+            text-decoration: none;
+            margin-bottom: 148px;
+            font-size: 15px;
+            line-height: 18px;
+        }
     </style>
 </head>
+
 <body>
     <div></div>
     <h1>MISSION BOOK</h1>
     <p>새내기를 위한🌱</p>
     <form method="post">
-    {% csrf_token %}
-    {{ form.user_id }}<br/>
-    {{ form.password }}<br/>
-    <input type="submit" name="login" value="로그인" />
-    <!-- {{ form.user_id.errors.0 }} -->
+        {% csrf_token %}
+        {{ form.user_id }}<br />
+        {{ form.password }}<br />
+        <input type="submit" name="login" value="로그인" />
+        <!-- {{ form.user_id.errors.0 }} -->
     </form>
     <a href="{% url 'join' %}">회원가입</a>
 </body>
+
 </html>
