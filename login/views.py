@@ -51,7 +51,7 @@ class LoginView(View):
                 login(request, user)
                 return redirect('success')
             else:
-                form.add_error('user_id', '아이디 또는 비밀번호가 일치하지 않습니다.')
+                form.add_error('user_id', '로그인 정보가 잘못되었습니다.')
         return render(request, 'login.html', {'form': form})
     
 

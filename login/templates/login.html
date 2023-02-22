@@ -1,29 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>login</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
     <style>
-        * {
+        *{
             font-family: 'Apple SD Gothic Neo';
             font-style: normal;
             font-weight: 700;
             font-size: 20px;
             line-height: 24px;
         }
-
-        body {
+        body{
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
             margin: 0;
         }
-
-        div {
+        #homeLogo{
             margin-top: 166px;
             width: 68px;
             height: 68px;
@@ -31,8 +29,7 @@
             border: 0.5px solid #C0C0C0;
             border-radius: 35px;
         }
-
-        h1 {
+        h1{
             margin-top: 35px;
             margin-bottom: 5px;
             font-family: 'Apple SD Gothic Neo';
@@ -41,8 +38,7 @@
             font-size: 28px;
             line-height: 34px;
         }
-
-        p {
+        p{
             margin-top: 0;
             margin-bottom: 122px;
             font-style: normal;
@@ -51,8 +47,7 @@
             line-height: 22px;
             color: #666666;
         }
-
-        input {
+        input{
             box-sizing: border-box;
             width: 300px;
             height: 60px;
@@ -62,40 +57,102 @@
             margin-bottom: 12px;
             padding: 18px;
         }
-
-        input::placeholder {
+        input::placeholder{
             color: #A7A7A7;
         }
-
-        input[type="submit"] {
+        input[type="submit"]{
             background: #F2F2F2;
             margin-top: 48px;
             margin-bottom: 12px;
             color: #666666;
         }
-
-        a {
+        a{
             color: #666666;
             text-decoration: none;
             margin-bottom: 148px;
             font-size: 15px;
             line-height: 18px;
         }
+        
+        /* 모달창 css */
+        .modal{
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .md_overlay{
+            background: rgba(0, 0, 0, 0.25);
+            width: 100%; height: 100%;
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .md_content{
+            width: 300px; height: 230px;
+            position: relative;
+            background-color: white;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .hidden{
+            display: none;
+        }
+        .md_content>h3{
+            color: #666666;
+            font-weight: 800;
+            font-size: 25px;
+            line-height: 30px;
+            margin-top: 42px;
+            margin-bottom: 14px;
+        }
+        .md_content>p{
+            font-weight: 700;
+            font-size: 18px;
+            line-height: 22px;
+            color: #7A7A7A;
+            margin-bottom: 49px;
+        }
+        .md_content>input{
+            margin-bottom: 28px;
+            box-sizing: border-box;
+            width: 150px; height: 45px;
+            padding: 10px;
+        }
     </style>
 </head>
-
 <body>
-    <div></div>
+    <div id="homeLogo"></div>
     <h1>MISSION BOOK</h1>
     <p>새내기를 위한🌱</p>
     <form method="post">
         {% csrf_token %}
         {{ form.user_id }}<br />
         {{ form.password }}<br />
-        <input type="submit" name="login" value="로그인" />
-        <!-- {{ form.user_id.errors.0 }} -->
+    <input type="submit" name="login" value="로그인" />
     </form>
     <a href="{% url 'join' %}">회원가입</a>
-</body>
 
+    {% if form.user_id.errors %}
+    <!-- 모달창 -->
+    <div class="modal">
+        <div class="md_overlay">
+            <div class="md_content">
+                <h3>로그인 오류</h3>
+                <p>{{form.user_id.errors.0}}</p>
+                <input type="button" name="loginErrorModal" value="확인"/>
+            </div>
+        </div>
+    </div>
+    <script>
+        // 모달창의 확인 버튼 누를시 모달창 없어짐
+        $('input[name=loginErrorModal]').click(()=>{location.href = "{% url 'login' %}";});
+        // 로그인 입력 오류시 모달창 보임
+        $('input[name=login]').click(()=>{$('.modal').removeClass('hidden')});
+    </script>
+    {% endif %}
+</body>
 </html>
