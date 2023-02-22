@@ -82,7 +82,7 @@ def profile(request):
     return render(request, 'profile.html')
 
     
-def change_profile(request):
+def setup(request):
     login = is_login(request)
     if login != 0:
         return login
@@ -90,39 +90,31 @@ def change_profile(request):
     user_id = request.user.user_id
     
     if request.method == 'POST':
-        form = ChangeProfileForm(request.POST, request.FILES)
-        if form.is_valid():
-            profile_image = form.cleaned_data['profile_image']
-            member = Member.objects.get(user_id=user_id)
-            img = Image.open(profile_image)
-            img = img.convert('RGB')  # RGBA -> RGB 변환
-            img = img.resize((100, 100))
-            buffer = io.BytesIO()
-            img.save(buffer, "JPEG")
-            member.profile_image.save(profile_image.name, buffer, save=True)
-            return redirect('profile')
-    else:
-        form = ChangeProfileForm()
-    return render(request, 'change_profile.html', {'form': form })
+        if 'change_profile' in request.POST:
+            form = ChangeProfileForm(request.POST, request.FILES)
+            if form.is_valid():
+                profile_image = form.cleaned_data['profile_image']
+                member = Member.objects.get(user_id=user_id)
+                img = Image.open(profile_image)
+                img = img.convert('RGB')  # RGBA -> RGB 변환
+                img = img.resize((100, 100))
+                buffer = io.BytesIO()
+                img.save(buffer, "JPEG")
+                member.profile_image.save(profile_image.name, buffer, save=True)
+                return redirect('profile')
+        elif 'change_name' in request.POST:
+            form = ChangeNameForm(request.POST)
+            if form.is_valid():
+                new_name = form.cleaned_data['name']
+                member = Member.objects.get(user_id=user_id)
+                if new_name != member.name: # 변경된 이름이 있는 경우에만 업데이트
+                    member.name = new_name
+                    member.save()
+                return redirect('profile')
 
-
-
-def change_name(request):
-    login = is_login(request)
-    if login != 0:
-        return login
-
-    if request.method == 'POST':
-        form = ChangeNameForm(request.POST)
-        if form.is_valid():
-            new_name = form.cleaned_data['name']
-            member = Member.objects.get(user_id=user_id)
-            member.name = new_name
-            member.save()
-            return redirect('profile')
-    else: 
-        form = ChangeNameForm()
-    return render(request, 'change_name.html', {'form': form })
+    form1 = ChangeProfileForm()
+    form2 = ChangeNameForm()
+    return render(request, 'setup.html', {'form1': form1, 'form2': form2 })
 
 
 
