@@ -1,5 +1,136 @@
-졸업하셨습니다!<br>
-{{user.name}}님의 졸업정보<br>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ending3</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <style>
+        *{
+            font-family: 'Apple SD Gothic Neo';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 20px;
+            text-align: center;
+            color: #8C8C8C;
+        }
+        .flex{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        hr{
+            width: 80%;
+            margin-top: 35px;
+            margin-bottom: 35px;
+        }
 
-<h1>{{graduation.name}}</h1>
-{{graduation.content}}<br>
+        h3{
+            margin-top: 100px;
+            margin-bottom: 10px;
+            font-size: 21px;
+            line-height: 25px;
+            color: #666666;
+        }
+        h2{
+            margin-top: 0;
+            margin-bottom: 35px;
+            font-size: 25px;
+            line-height: 30px;
+            color: #000000;
+        }
+        div.img{
+            width: 200px; height: 250px;
+            margin-bottom: 35px;
+            background: #D9D9D9;
+        }
+        .main{
+            text-align: center;
+        }
+        h4{
+            color: #7A7A7A;
+        }
+        div.main2{
+            padding-right: 120px;
+        }
+        div.main3{
+            padding-right: 35px;
+        }
+        .result{
+            padding-left: 30px;
+            text-align: left;
+        }
+        footer{
+            display: flex;
+            justify-content: space-around;
+            margin: 0 52px 52px 52px;
+        }
+        footer input{
+            padding: 12px 34px;
+            margin-left: 30px;
+            background: #FAFAFA;
+            border: 0.8px solid #C0C0C0;
+            border-radius: 5px;
+            font-size: 18px;
+            line-height: 22px;
+            color: #666666;
+
+        }
+        footer img{
+            margin-right: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="flex">
+        <h3>{{user.name}}님의 새내기는</h3>
+        <h2>{{graduation.name}}</h2>
+        <div class="img"></div>
+        <p class="main">
+            {{graduation.content|linebreaks}}
+        </p>
+        <hr/>
+        
+        <div class="main2">
+            <h4 class="mg">💪🏻 최종 스탯</h4>
+            <p class="result">
+                학업 <span id="study_value">{{user.int_stat}}</span> <br/>
+                사교 <span id="friend_value">{{user.social_stat}}</span> <br/>
+                경험 <span id="expe_value">{{user.exp_stat}}</span> <br/>
+                레벨 <span id="level_value">{{user.total_exp}}</span> <br/>
+            </p>
+        </div>
+
+        <div class="main3">
+            <h4>📜 지금까지 완료한 미션</h4>
+            <p class="result">
+                학업 <span id="study_count">40</span>개 <br/>
+                사교 <span id="friend_count">100</span>개 <br/>
+                경험 <span id="expe_count">57</span>개 <br/>
+                합계 <span id="sum">300</span>개 <br/>
+            </p>
+        </div>
+    </div>
+        <hr/>
+
+    <footer>
+        {% load static %}
+        <img src="{% static 'insta.png' %}" alt="카톡공유" width="40px" height="40px"/>
+        <img src="{% static 'kakao.png' %}" alt="인스타공유" width="40px" height="40px"/>
+
+        <form action="login.html">
+            <input type="submit" value="확인"/>
+        </form>
+    </footer>
+
+    <script>
+        $('#study_count').text('20'); //성공한 학업 개수
+        $('#friend_count').text('20'); //성공한 사교 개수
+        $('#expe_count').text('20'); //성공한 경험 개수
+        $('#sum').text('20'); // 합계
+    </script>
+</body>
+</html>

@@ -10,7 +10,7 @@ import os, io
 import datetime
 
 
-this_year = 2023
+this_year = 2022
 
 
 def join(request):
