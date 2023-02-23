@@ -10,8 +10,8 @@ import os, io
 import datetime
 
 
-this_year = 2022
-
+this_year = 2023
+# level = [0,10,15,20,25,30,35,40,45,50]
 
 def join(request):
     if request.method == 'POST':
@@ -34,6 +34,9 @@ def success(request):#테스트용
     }
     return render(request, 'success.html', {"context":context})
 
+def index(request):
+    return render(request, 'index.html')
+
 
 class LoginView(View):
     def get(self, request):
@@ -49,7 +52,7 @@ class LoginView(View):
             # pdb.set_trace()
             if user is not None:
                 login(request, user)
-                return redirect('success')
+                return redirect('index')
             else:
                 form.add_error('user_id', '로그인 정보가 잘못되었습니다.')
         return render(request, 'login.html', {'form': form})
@@ -66,10 +69,10 @@ def is_login(request):
         user_id = request.user.user_id  # 혹은 request.user.username 등 로그인한 유저의 정보를 사용
 
     if not user_id:
-        return redirect('success')
+        return redirect('index')
     
     if datetime.datetime.now().year!=this_year:
-        return frashman_graduation(request)
+        return redirect('/ending/1')
 
     return 0
     
@@ -80,6 +83,23 @@ def profile(request):
         return login
     
     return render(request, 'profile.html')
+
+def mypage(request):
+    login = is_login(request)
+    if login != 0:
+        return login
+    
+    titles = Title.objects.all()
+
+    selectable_titles = []
+    for title in titles:
+        if request.user.can_select_title(title):
+            selectable_titles.append(title)
+
+    context = {
+        'selectable_titles': selectable_titles,
+    }
+    return render(request, 'mypage.html', context)
 
     
 def setup(request):
@@ -170,11 +190,25 @@ def change_title_color(request, color):
     return redirect(select_title)
 
 
-def frashman_graduation(request):    
-    graduation = Graduation.objects.all().order_by('-order')
-    for g in graduation:
-        if request.user.can_graduation(g):
-            return render(request,"frashman_graduation.html",{"graduation":g})
+def ending(request, num):
+    user_id = None
+    if request.user.is_authenticated:
+        user_id = request.user.user_id
+
+    if not user_id and datetime.datetime.now().year==this_year:
+        return redirect('index')
+
+    if num == 1:
+        return render(request, "ending.html")
+    elif num == 2:
+        return render(request, "ending2.html")
+    elif num == 3:
+        graduation = Graduation.objects.all().order_by('-order')
+        for g in graduation:
+            if request.user.can_graduation(g):
+                return render(request, "ending3.html", {"graduation": g})
+        
+
     
 
 def unregister(request):
@@ -187,7 +221,7 @@ def unregister(request):
     member.is_active = False
     member.save()
 
-    return redirect(success)
+    return redirect('index')
 
 
 def prolog(request):

@@ -1,0 +1,118 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0 auto;
+    padding: 0;
+    width: 375px;
+    height: 812px;
+    background: #FFFFFF;
+    /*폰트 적용 여기
+    font-famaily: */
+}
+
+.container{
+    margin :0 auto;
+}
+
+ /* 상단바 css */
+header{
+    margin-top: 77px;
+    display: flex;
+    justify-content: end;
+    padding-right: 5px;
+}
+
+header img{
+    margin-right: 15px;
+}
+
+.mission-tab {
+    margin-top: 20px;
+    display:flex;
+    justify-content: center;
+}
+
+.mis-btn{
+    padding-right: 70px;
+}
+
+.missions{
+    display: flex;
+    justify-content: center;
+}
+
+
+.mission1{
+    position: absolute;
+    width: 160px;   
+    height: 165.22px;
+    left: 18px;
+    top: 283.28px;
+    background: #F6FAFF;
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+
+
+.mission2{
+    position: absolute;
+    width: 160px;
+    height: 165.22px;
+    left: 197px;
+    top: 283.28px;
+
+    background: #F6FAFF;
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.mission3{
+    position: absolute;
+    width: 160px;
+    height: 165.22px;
+    left: 18px;
+    top: 465.02px;
+
+    background: #F6FAFF;
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.mission4{
+    position: absolute;
+width: 160px;
+height: 165.22px;
+left: 197px;
+top: 465.02px;
+
+background: #FFFFFF;
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.1);
+border-radius: 10px;
+}
+
+.mission5{
+    /* 미션 창 - 진행 전 */
+    position: absolute;
+    width: 160px;
+    height: 165.22px;
+    left: 18px;
+    top: 646.77px;
+    background: #FFFFFF;
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.mission6{ 
+    position: absolute;
+    width: 160px;
+    height: 165.22px;
+    left: 197px;
+    top: 646.77px;
+    
+    background: #FFFFFF;
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ending2</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <style>
+      .visual {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      img {
+        margin-top: 310px;
+      }
+      p {
+        margin-top: 20px;
+        margin-bottom: 295px;
+        font-family: "Apple SD Gothic Neo";
+        font-style: normal;
+        font-weight: 700;
+        font-size: 17px;
+        line-height: 20px;
+        text-align: center;
+        color: #8c8c8c;
+      }
+      .fade_in {
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="visual">
+      {% load static %}
+      <img
+        src="{% static 'team_logo.png' %}"
+        width="250px"
+        height="225px"
+        alt="팀로고"
+        class="fade_in"
+      />
+      <p class="fade_in">made by. 멋쟁이 사자처럼 벚꽃톤 9팀</p>
+    </div>
+    <script>
+      // 시간차 문단 보이기
+      const fadeEls = document.querySelectorAll(".fade_in");
+      fadeEls.forEach((fadeEl, index) => {
+        gsap.to(fadeEl, 2, {
+          delay: (index + 1) * 0.9,
+          opacity: 1,
+        });
+      });
+
+      // 바디 클릭시 미션 화면으로 넘어감
+      $("body").click(() => {
+        window.location.href = "{% url 'ending' num=3 %}";
+      });
+    </script>
+  </body>
+</html>

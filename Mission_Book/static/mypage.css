@@ -1,0 +1,320 @@
+/* 헤더 */
+header {
+  margin-top: 77px;
+  display: flex;
+  justify-content: end;
+  padding-right: 5px;
+}
+header img {
+  margin-right: 15px;
+}
+
+/* 사용자 정보 */
+#userTab {
+  display: flex;
+  margin: 6% 0 2% 5%;
+  align-items: center;
+}
+
+#userImg {
+  margin-right: 1rem;
+  border-radius: 50%;
+  height: 4rem;
+  width: 4rem;
+}
+
+#username {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 25px;
+}
+
+#level {
+  font-weight: 800;
+  font-size: 12px;
+  line-height: 14px;
+  color: #666666;
+}
+
+#title {
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 18px;
+  letter-spacing: 0.02em;
+  color: #666666;
+}
+
+/* 메뉴  */
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: #7a7a7a;
+}
+
+.tab_menu {
+  position: relative;
+}
+
+.tab_menu .list {
+  overflow: hidden;
+}
+
+#complete ul {
+  overflow: hidden;
+}
+
+.tab_menu .list li {
+  display: flex;
+}
+
+/* 서브 메뉴 탭 */
+#complete li {
+  display: flex;
+  float: left;
+}
+
+.tab_menu .list .btn {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 50px;
+  color: #7a7a7a;
+  padding: 0 1rem 0.3rem 1rem;
+}
+
+/* 서브메뉴 버튼 이모지 */
+#complete .sub-btn {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 50px;
+  padding: 0 1rem 1rem 1rem;
+}
+
+/* 컨텐츠 영역 */
+.tab_menu .list .cont {
+  display: none;
+  position: absolute;
+  top: 0px;
+  left: 4rem;
+  /* background-color: yellow; */
+  background: #f9f9f9;
+  width: 99%;
+  height: 100vh;
+}
+
+/* 서브 메뉴 컨텐츠  */
+#complete .sub-cont {
+  display: none;
+  position: absolute;
+  top: 3.1rem;
+  left: 0px;
+  /* background-color: yellow; */
+  background-color: #f9f9f9;
+  width: 99%;
+  height: 100vh;
+}
+
+/* 메인 메뉴 눌렸을 때 */
+.tab_menu .list li.is_on .btn {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 50px;
+  color: #666666;
+  /* background-color: red; */
+  background: #f9f9f9;
+}
+
+/* 서브메뉴 클릭시 변경 */
+#complete li.is_sub .sub-btn {
+  text-align: center;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 50px;
+  padding: 0 1rem 1rem 1rem;
+
+  background: #efefef;
+  border: 0.5px solid #c0c0c0;
+  border-radius: 2px;
+}
+
+.tab_menu .list li.is_on .cont {
+  display: block;
+}
+
+.menu-title {
+  padding: 1rem 0 0.3rem 2rem;
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 30px;
+  color: #7a7a7a;
+}
+
+.menu-detail {
+  margin-left: 3rem;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 25px;
+  color: #8c8c8c;
+}
+
+/* 서브메뉴 컨텐츠 */
+#complete li.is_sub .sub-cont {
+  display: block;
+}
+
+#complete ul {
+  width: 100%;
+  margin-left: 20%;
+}
+/* 퍼센트바 */
+#progress {
+  appearance: none;
+}
+
+#progress::-webkit-progress-bar {
+  background: #ffffff;
+  border: 1px solid #c0c0c0;
+  border-radius: 3px;
+}
+
+#progress::-webkit-progress-value {
+  background: #ffe692;
+}
+
+#per_value {
+  margin-left: 50px;
+}
+
+/* 색상 팔레트  */
+.pallet {
+  margin: 3rem 0rem 1rem 5rem;
+}
+
+.active {
+  border: 0.5px solid #c0c0c0;
+}
+
+.colorBox {
+  width: 1.4rem;
+  height: 1.4rem;
+  float: left;
+  margin-right: 0.4rem;
+  border-radius: 50%;
+  border: 0.5px solid #c0c0c0;
+  cursor: pointer;
+}
+
+#apply {
+  background: #fbfbfb;
+  border: 0.8px solid #c0c0c0;
+  border-radius: 5px;
+  font-weight: 800;
+  font-size: 15px;
+  line-height: 17px;
+  padding: 0.2rem;
+  color: #666666;
+}
+
+/* 칭호 */
+.title-wrap {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.title-text {
+  flex: auto;
+  width: 30%;
+  margin-left: 2rem;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 30px;
+  color: #7a7a7a;
+}
+
+/* 완료-학업 */
+.sub-wrap-study {
+  display: inline-block;
+  margin-top: 5%;
+  margin-left: 5%;
+  width: 125px;
+  height: 100px;
+
+  background: #ffffff;
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+#star-study {
+  color: #c6dfff;
+  font-size: 15px;
+  margin-left: 10px;
+  line-height: 40px;
+}
+
+#text-study {
+  text-align: center;
+  font-weight: 800;
+  font-size: 15px;
+  line-height: 18px;
+  color: #666666;
+}
+
+/* 완료-사교 */
+.sub-wrap-social {
+  display: inline-block;
+  margin-top: 5%;
+  width: 125px;
+  height: 100px;
+
+  background: #ffffff;
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+#star-social {
+  color: #ffe692;
+  font-size: 15px;
+  margin-left: 10px;
+  line-height: 40px;
+}
+
+#text-social {
+  text-align: center;
+  font-weight: 800;
+  font-size: 15px;
+  line-height: 18px;
+  color: #666666;
+}
+
+/* 완료-경험 */
+.sub-wrap-exp {
+  display: inline-block;
+  margin-top: 5%;
+  margin-left: 5%;
+  width: 125px;
+  height: 100px;
+
+  background: #ffffff;
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+#star-exp {
+  color: #ffe692;
+  font-size: 15px;
+  margin-left: 10px;
+  line-height: 40px;
+}
+
+#text-exp {
+  text-align: center;
+  font-weight: 800;
+  font-size: 15px;
+  line-height: 18px;
+  color: #666666;
+}
