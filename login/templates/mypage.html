@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="{% static 'style.css' %}" />
-    <link rel="stylesheet" href="{% static 'mypage.css' %}" />
+
     <title>📚MissionBook - MyPage</title>
   </head>
 
@@ -73,8 +73,6 @@
           <div class="title-wrap">
             {% for title in selectable_titles %}
             <p class="title-text"><a href="{% url 'change_title' title.id %}?title_id={{ title.id }}">{{ title }}</a></p>
-            {% empty %}
-              <li>No selectable titles</li>
             {% endfor %}
         </div>
           </div>

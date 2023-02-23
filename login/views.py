@@ -19,7 +19,7 @@ def join(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return prolog(request)
+            return redirect('/prolog/1')
     else:
         form = MemberCreationForm()
     return render(request, 'join.html', {'form': form })
@@ -82,7 +82,7 @@ def profile(request):
     if login != 0:
         return login
     
-    return render(request, 'profile.html')
+    return render(request, 'profile.html', 1)
 
 def mypage(request):
     login = is_login(request)
@@ -158,7 +158,7 @@ def select_title(request):
         'selectable_titles': selectable_titles,
         'non_selectable_titles': non_selectable_titles,
     }
-    return render(request, 'select_title.html', context)
+    return render(request, 'mypage.html', context)
 
 
 def change_title(request, title):
@@ -224,11 +224,18 @@ def unregister(request):
     return redirect('index')
 
 
-def prolog(request):
-    login = is_login(request)
-    if login != 0:
-        return login
-    return render(request,"prolog.html")
+def prolog(request, num):
+    user_id = None
+    if request.user.is_authenticated:
+        user_id = request.user.user_id
+
+    if not user_id and datetime.datetime.now().year!=this_year:
+        return redirect('index')
+
+    if num == 1:
+        return render(request, "prolog.html")
+    elif num == 2:
+        return render(request, "prolog2.html")
 
 
 
