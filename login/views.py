@@ -19,7 +19,7 @@ def join(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('success')
+            return prolog(request)
     else:
         form = MemberCreationForm()
     return render(request, 'join.html', {'form': form })
@@ -176,3 +176,25 @@ def frashman_graduation(request):
         if request.user.can_graduation(g):
             return render(request,"frashman_graduation.html",{"graduation":g})
     
+
+def unregister(request):
+    login = is_login(request)
+    if login != 0:
+        return login
+    
+    user_id = request.user.user_id
+    member = Member.objects.get(user_id=user_id)
+    member.is_active = False
+    member.save()
+
+    return redirect(success)
+
+
+def prolog(request):
+    login = is_login(request)
+    if login != 0:
+        return login
+    return render(request,"prolog.html")
+
+
+

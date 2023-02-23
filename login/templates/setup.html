@@ -207,7 +207,8 @@
         $('input[name=changeImg]').click(()=>{
             $('.md_content > h3').text('프로필 이미지 변경');
             $('.md_content > p').text('변경된 이미지를 확인하세요.');
-            $('.md_content input[name=changeNickInput]').before('<div>안녕</div>');
+            $('.md_content input[name=changeNickInput]').before('<div id="modalDiv"></div>');
+            $('#modalDiv').css('width','68px').css('height','68px').css('background','#F5F5F5').css('border' ,'0.5px solid #C0C0C0').css('border-radius', '30px').css('margin','20px 110px');
             $('.md_content input[name=changeNickInput]').remove();
             $('.modal').removeClass('hidden');
         });
