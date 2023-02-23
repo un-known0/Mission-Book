@@ -82,7 +82,7 @@ def profile(request):
     if login != 0:
         return login
     
-    return render(request, 'profile.html', 1)
+    return render(request, 'profile.html')
 
 def mypage(request):
     login = is_login(request)
@@ -106,7 +106,6 @@ def setup(request):
     login = is_login(request)
     if login != 0:
         return login
-
     user_id = request.user.user_id
     
     if request.method == 'POST':
@@ -121,7 +120,7 @@ def setup(request):
                 buffer = io.BytesIO()
                 img.save(buffer, "JPEG")
                 member.profile_image.save(profile_image.name, buffer, save=True)
-                return redirect('profile')
+                return redirect('mypage')
         elif 'change_name' in request.POST:
             form = ChangeNameForm(request.POST)
             if form.is_valid():
@@ -130,7 +129,7 @@ def setup(request):
                 if new_name != member.name: # 변경된 이름이 있는 경우에만 업데이트
                     member.name = new_name
                     member.save()
-                return redirect('profile')
+                return redirect('mypage')
 
     form1 = ChangeProfileForm()
     form2 = ChangeNameForm()
