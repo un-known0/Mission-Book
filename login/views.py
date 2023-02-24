@@ -130,6 +130,12 @@ def setup(request):
                     member.name = new_name
                     member.save()
                 return redirect('mypage')
+        elif 'unregister' in request.POST:
+            user_id = request.user.user_id
+            member = Member.objects.get(user_id=user_id)
+            member.is_active = False
+            member.save()
+            return redirect('index')
 
     form1 = ChangeProfileForm()
     form2 = ChangeNameForm()
@@ -207,20 +213,6 @@ def ending(request, num):
             if request.user.can_graduation(g):
                 return render(request, "ending3.html", {"graduation": g})
         
-
-    
-
-def unregister(request):
-    login = is_login(request)
-    if login != 0:
-        return login
-    
-    user_id = request.user.user_id
-    member = Member.objects.get(user_id=user_id)
-    member.is_active = False
-    member.save()
-
-    return redirect('index')
 
 
 def prolog(request, num):

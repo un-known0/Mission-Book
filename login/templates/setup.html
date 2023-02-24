@@ -148,6 +148,13 @@
             padding: 10px;
             text-align: center;
         }
+        .md2_content input{
+            margin-bottom: 28px;
+            box-sizing: border-box;
+            width: 100px; height: 45px;
+            padding: 10px;
+            text-align: center;
+        }
         .md2_content span{
             color: #C74E4E;
         }
@@ -186,8 +193,11 @@
             <div class="md2_content">
                 <h3>회원 탈퇴</h3>
                 <p>정말 <span>회원탈퇴</span> 하시겠습니까?</p>
+                <form method="POST">
+                    {% csrf_token %}
                 <input type="button" name="cancel" value="취소"/>
-                <input type="submit" name="changeNickModal2" value="확인"/>
+                <input type="submit" name="unregister" value="확인"/>
+                </form>
             </div>
         </div>
     </div>
