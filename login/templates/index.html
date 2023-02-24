@@ -26,7 +26,7 @@
                 <a class="level">Lv.7</a>
             </div>
             <div>
-                <p class="personal explanation">{{user.title}} </p>
+                <p class="personal explanation">{% if user.title %}{{user.title}}{% else %} 칭호없음 {% endif %}</p>
             </div>
     
             

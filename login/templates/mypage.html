@@ -19,10 +19,10 @@
     </header>
     <!-- 사용자 정보 -->
     <div id="userTab">
-      <!-- <img id="userImg" src="/media/{{ user.profile_image }}" alt="사용자 이미지" /> -->
+      <img id="userImg" src="/media/{{ user.profile_image }}" alt="사용자 이미지" />
       <p>
         <span id="username">{{user.name}}</span>&nbsp;<span id="level">LV.()</span
-        ><br /><span id="title">{{user.title}}</span>
+        ><br /><span id="title">{% if user.title %}{{user.title}}{% else %} 칭호없음 {% endif %}</span>
       </p>
     </div>
     <hr />
@@ -38,7 +38,7 @@
               <p>LV.()</p>
               <p class="per">
                 <!-- max 100%, value 값에 따라 설정 -->
-                <progress id="progress" value="50" max="100"></progress>
+                <proress id="progress" value="50" max="100"></progress>
               <p id="per_value">50%</p>
               </p>
             </div>
