@@ -10,7 +10,7 @@ import os, io
 import datetime
 
 
-this_year = 2023
+this_year = 2022
 # level = [0,10,15,20,25,30,35,40,45,50]
 
 def join(request):
@@ -35,6 +35,13 @@ def success(request):#테스트용
     return render(request, 'success.html', {"context":context})
 
 def index(request):
+    user_id = None
+    if request.user.is_authenticated:
+        user_id = request.user.user_id  # 혹은 request.user.username 등 로그인한 유저의 정보를 사용
+    
+    if user_id and datetime.datetime.now().year!=this_year:
+        return redirect('/ending/1')
+    
     return render(request, 'index.html')
 
 
