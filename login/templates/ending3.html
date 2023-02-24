@@ -118,12 +118,28 @@
 
     <footer>
         {% load static %}
-        <img src="{% static 'insta.png' %}" alt="카톡공유" width="40px" height="40px"/>
-        <img src="{% static 'kakao.png' %}" alt="인스타공유" width="40px" height="40px"/>
+        <a id="save-btn"><img src="" alt="저장하기" width="40px" height="40px"/></button>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+        <script>
+          var saveBtn = document.getElementById("save-btn");
+          saveBtn.addEventListener("click", function() {
+            html2canvas(document.body, {
+                onrendered: function(canvas) {
+                  var link = document.createElement("a");
+                  link.download = "screenshot.png";
+                  link.href = canvas.toDataURL("image/png");
+                  link.click();
+                }
+              });
+              
+          });
+        </script>
 
-        <form action="login.html">
-            <input type="submit" value="확인"/>
-        </form>
+        
+
+        
+        <a href="{% url 'login' %}"><input type="submit" value="로그인화면"/></a>
+        
     </footer>
 
     <script>
