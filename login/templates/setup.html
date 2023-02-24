@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,66 +9,90 @@
     <title>Setup</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
     <style>
-        *{
-            font-family: 'Apple SD Gothic Neo';
+        * {
+            font-family: "Apple SD Gothic Neo";
             font-style: normal;
             font-weight: 700;
             font-size: 18px;
             line-height: 22px;
-            color: #7A7A7A;
+            color: #7a7a7a;
         }
-        body{
+
+        main {
             display: flex;
             flex-direction: column;
             align-items: center;
             margin: 0;
         }
-        input{
+
+        /* 상단바 css */
+        header {
+            margin-top: 77px;
+            display: flex;
+            justify-content: end;
+            padding-right: 5px;
+        }
+
+        header img {
+            margin-right: 15px;
+        }
+
+        input {
             box-sizing: border-box;
             width: 315px;
             height: 55px;
-            background: #FAFAFA;
-            border: 0.8px solid #C0C0C0;
+            background: #fafafa;
+            border: 0.8px solid #c0c0c0;
             border-radius: 5px;
             margin-bottom: 16px;
             padding: 17px 0px 17px 21px;
             text-align: left;
         }
-        input[name=changeNick]{
-            margin-top: 188px;
+
+        input[name="changeNick"] {
+            margin-top: 86px;
         }
-        input[name=delectAccount]{
-            color: #C74E4E;
+
+        input[name="delectAccount"] {
+            color: #c74e4e;
         }
 
         /* 큰 사이즈 모달창 */
-        .modal{
+        .modal {
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
         }
-        .md_overlay{
+
+        .md_overlay {
             background: rgba(0, 0, 0, 0.25);
-            width: 100%; height: 100%;
+            width: 100%;
+            height: 100%;
             position: absolute;
             display: flex;
             justify-content: center;
             align-items: center;
         }
-        .md_content{
-            width: 300px; height: 300px;
+
+        .md_content {
+            width: 300px;
+            height: 300px;
             position: relative;
             background-color: white;
             text-align: center;
             border-radius: 5px;
         }
-        .hidden{
+
+        .hidden {
             display: none;
         }
-        .md_content>h3{
+
+        .md_content>h3 {
             color: #666666;
             font-weight: 800;
             font-size: 25px;
@@ -74,24 +100,29 @@
             margin-top: 42px;
             margin-bottom: 14px;
         }
-        .md_content>p{
+
+        .md_content>p {
             font-weight: 700;
             font-size: 18px;
             line-height: 22px;
-            color: #7A7A7A;
+            color: #7a7a7a;
             margin-bottom: 22px;
         }
-        .md_content input[type=submit]{
+
+        .md_content input[type="submit"] {
             margin-bottom: 28px;
             box-sizing: border-box;
-            width: 150px; height: 45px;
+            width: 150px;
+            height: 45px;
             padding: 10px;
             text-align: center;
         }
-        .md_content input[type=text]{
+
+        .md_content input[type="text"] {
             margin-bottom: 52px;
             box-sizing: border-box;
-            width: 200px; height: 45px;
+            width: 200px;
+            height: 45px;
             padding: 10px;
             border: none;
             border-radius: 0px;
@@ -100,33 +131,41 @@
         }
 
         /* 작은 사이즈 모달창 */
-        .modal2{
+        .modal2 {
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
         }
-        .md2_overlay{
+
+        .md2_overlay {
             background: rgba(0, 0, 0, 0.25);
-            width: 100%; height: 100%;
+            width: 100%;
+            height: 100%;
             position: absolute;
             display: flex;
             justify-content: center;
             align-items: center;
         }
-        .md2_content{
-            width: 300px; height: 230px;
+
+        .md2_content {
+            width: 300px;
+            height: 230px;
             position: relative;
             background-color: white;
             text-align: center;
             border-radius: 5px;
         }
-        .hidden{
+
+        .hidden {
             display: none;
         }
-        .md2_content>h3{
+
+        .md2_content>h3 {
             color: #666666;
             font-weight: 800;
             font-size: 25px;
@@ -134,46 +173,55 @@
             margin-top: 42px;
             margin-bottom: 14px;
         }
-        .md2_content>p{
+
+        .md2_content>p {
             font-weight: 700;
             font-size: 18px;
             line-height: 22px;
-            color: #7A7A7A;
+            color: #7a7a7a;
             margin-bottom: 49px;
         }
-        .md2_content>input{
+
+        .md2_content>input {
             margin-bottom: 28px;
             box-sizing: border-box;
-            width: 100px; height: 45px;
+            width: 100px;
+            height: 45px;
             padding: 10px;
             text-align: center;
         }
-        .md2_content input{
-            margin-bottom: 28px;
-            box-sizing: border-box;
-            width: 100px; height: 45px;
-            padding: 10px;
-            text-align: center;
+
+        .md2_content span {
+            color: #c74e4e;
         }
-        .md2_content span{
-            color: #C74E4E;
-        }
-        .md2_content>input[type=button]{
+
+        .md2_content>input[type="button"] {
             margin-right: 15px;
         }
-        .md2_content>input[type=submit]{
+
+        .md2_content>input[type="submit"] {
             margin-left: 15px;
         }
     </style>
 </head>
-<body>
-    <input type="button" name="changeNick" value="이름 변경"/>
-    <input type="button" name="changeImg" value="프로필 이미지 변경"/>
-    <a href="{% url 'login' %}"><input type="button" name="logOut" value="로그아웃"/></a>
-    <input type="button" name="delectAccount" value="회원탈퇴"/>
 
-     <!-- 큰 사이즈 모달창 -->
-     <div class="modal hidden">
+<body>
+    <header>
+        <a href="{% url 'index' %}"><img src="{% static 'misson.png' %}" alt="미션아이콘" width="25px"
+                height="25px" /></a>
+        <a href="{% url 'mypage' %}"><img src="{% static 'info.png' %}" alt="정보아이콘" width="25px" height="25px" /></a>
+        <a href="{% url 'setup' %}"><img src="{% static 'setup_click.png' %}" alt="설정아이콘" width="25px" height="25px" /></a>
+
+    </header>
+    <main>
+        <input type="button" name="changeNick" value="이름 변경" />
+        <input type="button" name="changeImg" value="프로필 이미지 변경" />
+        <a href="{% url 'login' %}"><input type="button" name="logOut" value="로그아웃" /></a>
+        <input type="button" name="delectAccount" value="회원탈퇴" />
+    </main>
+
+    <!-- 큰 사이즈 모달창 -->
+    <div class="modal hidden">
         <div class="md_overlay">
             <div class="md_content">
                 <h3>이름 변경</h3>
@@ -195,46 +243,47 @@
                 <p>정말 <span>회원탈퇴</span> 하시겠습니까?</p>
                 <form method="POST">
                     {% csrf_token %}
-                <input type="button" name="cancel" value="취소"/>
-                <input type="submit" name="unregister" value="확인"/>
+                    <input type="button" name="cancel" value="취소" />
+                    <input type="submit" name="unregister" value="확인" />
                 </form>
             </div>
         </div>
     </div>
     <script>
         // 모달창의 확인 버튼 누를시 모달창 없어짐
-        $('input[name=changeNickModal]').click(()=>{$('.modal').addClass('hidden')});
-        $('input[name=changeNickModal2]').click(()=>{$('.modal2').addClass('hidden')});
+        $('input[name=changeNickModal]').click(() => { $('.modal').addClass('hidden') });
+        $('input[name=changeNickModal2]').click(() => { $('.modal2').addClass('hidden') });
 
         // 이름 변경 버튼 클릭시 모달창 보임
-        $('input[name=changeNick]').click(()=>{
+        $('input[name=changeNick]').click(() => {
             $('.md_content > h3').text('이름 변경');
             $('.md_content > p').text('변경할 이름을 입력하세요.');
             $('.modal').removeClass('hidden')
         });
 
-      // 프로필 이미지 변경 버튼 클릭시 모달창 보임
-      $("input[name=changeImg]").click(() => {
-        $(".md_content > h3").text("프로필 이미지 변경");
+        // 프로필 이미지 변경 버튼 클릭시 모달창 보임
+        $("input[name=changeImg]").click(() => {
+            $(".md_content > h3").text("프로필 이미지 변경");
 
-        $(".md_content input[name=name]").attr("name", "profile_image");
-        $(".md_content input[name=profile_image]").attr("type", "file");
-        $("input[name=profile_image]").css("font-size", "14px");
-        $("input[name=profile_image]").css("width", "250px");
-        $(".md_content input[name=change_name]").attr("name", "change_profile");
-        $(".modal").removeClass("hidden");
-      });
-        
+            $(".md_content input[name=name]").attr("name", "profile_image");
+            $(".md_content input[name=profile_image]").attr("type", "file");
+            $("input[name=profile_image]").css("font-size", "14px");
+            $("input[name=profile_image]").css("width", "250px");
+            $(".md_content input[name=change_name]").attr("name", "change_profile");
+            $(".modal").removeClass("hidden");
+        });
+
         // 회원탈퇴 버튼 클릭시 모달창 보임
-        $('input[name=delectAccount]').click(()=>{
+        $('input[name=delectAccount]').click(() => {
             $('.modal2').removeClass('hidden');
         })
-        
+
         // 회원탈퇴 모달창 취소 버튼 누를시 모달창 사라짐
-        $('input[name=cancel]').click(()=>{
+        $('input[name=cancel]').click(() => {
             $('.modal2').addClass('hidden');
         })
-        
+
     </script>
 </body>
+
 </html>
