@@ -21,7 +21,7 @@
     <div id="userTab">
       <img id="userImg" src="/media/{{ user.profile_image }}" alt="사용자 이미지" />
       <p>
-        <span id="username">{{user.name}}</span>&nbsp;<span id="level">LV.()</span
+        <span id="username">{{user.name}}</span>&nbsp;<span id="level">LV.{{ user.total_exp|add:0 }}</span
         ><br /><span id="title">{% if user.title %}{{user.title}}{% else %} 칭호없음 {% endif %}</span>
       </p>
     </div>
@@ -35,11 +35,11 @@
           <div id="stats" class="cont">
             <p class="menu-title">🚩 현재 레벨</p>
             <div class="menu-detail">
-              <p>LV.()</p>
+              <p>LV. {{ user.total_exp|add:0 }}</p>
               <p class="per">
                 <!-- max 100%, value 값에 따라 설정 -->
-                <proress id="progress" value="50" max="100"></progress>
-              <p id="per_value">50%</p>
+                <progress id="progress" value="{{exp_per}}" max="100"></progress>
+              <p id="per_value"> {{exp_per}}% </p>
               </p>
             </div>
             <br />

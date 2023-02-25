@@ -137,6 +137,7 @@ def mypage(request):
 
     context = {
         'selectable_titles': selectable_titles,
+        'exp_per':str(int((request.user.total_exp%1)*100))
     }
     return render(request, 'mypage.html', context)
 
@@ -202,7 +203,7 @@ def select_title(request):
         'selectable_titles': selectable_titles,
         'non_selectable_titles': non_selectable_titles,
     }
-    return render(request, 'mypage.html', context)
+    return redirect('mypage')
 
 
 def change_title(request, title):

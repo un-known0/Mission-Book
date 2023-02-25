@@ -17,6 +17,9 @@ class Checklist(models.Model):
     need_social_stat = models.IntegerField(default=0) #미션 개방 사교스탯
     need_exp_stat = models.IntegerField(default=0) #미션 개방 경험스탯
     
+    def __str__(self):
+        return f'<{self.category}>{self.title}'
+    
 class MemberChecklist(models.Model):
     member = models.CharField(max_length=20)
     checklist = models.ForeignKey(Checklist, on_delete=models.CASCADE)

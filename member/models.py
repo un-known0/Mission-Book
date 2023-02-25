@@ -32,7 +32,7 @@ class Member(AbstractBaseUser):
     int_stat = models.IntegerField(default=0)
     social_stat = models.IntegerField(default=0)
     exp_stat = models.IntegerField(default=0)
-    total_exp = models.IntegerField(default=0)
+    total_exp = models.FloatField(default=1)
     title = models.ForeignKey('Title', on_delete=models.SET_NULL, null=True, blank=True)
     title_color = models.IntegerField(default=0)
     profile_image = models.ImageField(upload_to="images/", null=True, blank=True, default="images/lion1.jpg")
@@ -92,4 +92,9 @@ class Graduation(models.Model):
     content = models.TextField()
     need_int = models.IntegerField(default=0)
     need_social = models.IntegerField(default=0)
-   
+    need_exp = models.IntegerField(default=0)
+    need_total_exp = models.IntegerField(default=0)
+    order = models.IntegerField(default=0)
+    
+    def __str__(self):
+        return self.name     

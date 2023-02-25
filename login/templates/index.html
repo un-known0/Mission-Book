@@ -23,7 +23,7 @@
         <div class="container">
             <div>
                 <a class="name">{{user.name}}</ㅁ>
-                <a class="level">Lv.7</a>
+                <a class="level">Lv.{{ user.total_exp|add:0 }}</a>
             </div>
             <div>
                 <p class="personal explanation">{% if user.title %}{{user.title}}{% else %} 칭호없음 {% endif %}</p>
