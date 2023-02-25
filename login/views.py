@@ -45,20 +45,20 @@ def index(request, category):
     
     checklists = MemberChecklist.objects.filter(member=user_id)
     if category == 1:
-        some_missionlist_pro = checklists.filter(checklist__category=1, status=0)  # 카테고리가 1, status가 0인 미션 리스트를 가져옴
-        some_missionlist_pre = checklists.filter(checklist__category=1, status=-1) # 카테고리가 1, status가 -1인 미션 리스트를 가져옴
+        some_missionlist_pro = checklists.filter(checklist__category=1, status=0, checklist__need_class_stat__lte=request.user.int_stat)  # 카테고리가 1, status가 0인 미션 리스트를 가져옴
+        some_missionlist_pre = checklists.filter(checklist__category=1, status=-1, checklist__need_class_stat__lte=request.user.int_stat) # 카테고리가 1, status가 -1인 미션 리스트를 가져옴
         some_missionlist_pro.order_by('checklist__level')
         some_missionlist_pre.order_by('checklist__level')
         category_name = '학업'
     elif category == 2:
-        some_missionlist_pro = checklists.filter(checklist__category=2, status=0)  # 카테고리가 2, status가 0인 미션 리스트를 가져옴
-        some_missionlist_pre = checklists.filter(checklist__category=2, status=-1)  # 카테고리가 2, status가 -1인 미션 리스트를 가져옴
+        some_missionlist_pro = checklists.filter(checklist__category=2, status=0, checklist__need_social_stat__lte=request.user.social_stat)  # 카테고리가 2, status가 0인 미션 리스트를 가져옴
+        some_missionlist_pre = checklists.filter(checklist__category=2, status=-1, checklist__need_social_stat__lte=request.user.social_stat)  # 카테고리가 2, status가 -1인 미션 리스트를 가져옴
         some_missionlist_pro.order_by('checklist__level')
         some_missionlist_pre.order_by('checklist__level')
         category_name = '사교'
     elif category == 3:
-        some_missionlist_pro = checklists.filter(checklist__category=3, status=0)  # 카테고리가 3, status가 0인 미션 리스트를 가져옴
-        some_missionlist_pre = checklists.filter(checklist__category=3, status=-1)  # 카테고리가 3, status가 -1인 미션 리스트를 가져옴
+        some_missionlist_pro = checklists.filter(checklist__category=3, status=0, checklist__need_exp_stat__lte=request.user.exp_stat)  # 카테고리가 3, status가 0인 미션 리스트를 가져옴
+        some_missionlist_pre = checklists.filter(checklist__category=3, status=-1, checklist__need_exp_stat__lte=request.user.exp_stat)  # 카테고리가 3, status가 -1인 미션 리스트를 가져옴
         some_missionlist_pro.order_by('checklist__level')
         some_missionlist_pre.order_by('checklist__level')
         category_name = '경험'
@@ -146,7 +146,8 @@ def mypage(request):
         'exp_per':str(int((request.user.total_exp%1)*100)),
         'int_num' : int_num,
         'social_num' : social_num,
-        'exp_num' : exp_num
+        'exp_num' : exp_num,
+        'total_num' : int_num+social_num+exp_num
     }
     return render(request, 'mypage.html', context)
 
@@ -226,6 +227,20 @@ def change_title(request, title):
     if request.user.can_select_title(title):
         member = Member.objects.get(user_id=user_id)
         member.title = title
+        member.save()
+    return redirect(select_title)
+
+
+def change_title_color(request, color):
+    login = is_login(request)
+    if login != 0:
+        return login
+
+    user_id = request.user.user_id
+    
+    if 0<=color<6:
+        member = Member.objects.get(user_id=user_id)
+        member.title_color = color
         member.save()
     return redirect(select_title)
 

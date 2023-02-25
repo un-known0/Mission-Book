@@ -29,9 +29,9 @@ class MemberManager(BaseUserManager):
 class Member(AbstractBaseUser):
     user_id = models.CharField(unique=True, max_length=20)
     name = models.CharField(max_length=20)
-    int_stat = models.IntegerField(default=0)
-    social_stat = models.IntegerField(default=0)
-    exp_stat = models.IntegerField(default=0)
+    int_stat = models.FloatField(default=0)
+    social_stat = models.FloatField(default=0)
+    exp_stat = models.FloatField(default=0)
     total_exp = models.FloatField(default=1)
     title = models.ForeignKey('Title', on_delete=models.SET_NULL, null=True, blank=True)
     title_color = models.IntegerField(default=0)
