@@ -29,18 +29,10 @@ def join(request):
         form = MemberCreationForm()
     return render(request, 'join.html', {'form': form })
 
-def success(request):#테스트용
-    user_id = None
-    if request.user.is_authenticated:
-        user_id = request.user.user_id  # 혹은 request.user.username 등 로그인한 유저의 정보를 사용
-
-    context = {
-        'user_id': user_id
-    }
-    return render(request, 'success.html', {"context":context})
 
 def index_null(request):
     return index(request,1)
+
 
 def index(request, category):
 
@@ -217,20 +209,6 @@ def change_title(request, title):
     if request.user.can_select_title(title):
         member = Member.objects.get(user_id=user_id)
         member.title = title
-        member.save()
-    return redirect(select_title)
-
-
-def change_title_color(request, color):
-    login = is_login(request)
-    if login != 0:
-        return login
-
-    user_id = request.user.user_id
-    
-    if 0<=color<6:
-        member = Member.objects.get(user_id=user_id)
-        member.title_color = color
         member.save()
     return redirect(select_title)
 
