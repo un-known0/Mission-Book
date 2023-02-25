@@ -1,16 +1,18 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
-
+from checklist.models import Checklist,MemberChecklist
 
 
 class MemberManager(BaseUserManager):
     def create_user(self, user_id, password=None, **extra_fields):
+
         if not user_id:
             raise ValueError('이미 존재하는 ID입니다.')
         user = self.model(user_id=user_id, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
+    
 
     def create_superuser(self, user_id, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
@@ -25,7 +27,7 @@ class MemberManager(BaseUserManager):
 
 
 class Member(AbstractBaseUser):
-    user_id = models.CharField(unique=True,max_length=20)
+    user_id = models.CharField(unique=True, max_length=20)
     name = models.CharField(max_length=20)
     int_stat = models.IntegerField(default=0)
     social_stat = models.IntegerField(default=0)
@@ -74,8 +76,6 @@ class Member(AbstractBaseUser):
             return False
         
         
-    
-
 class Title(models.Model):
     name = models.TextField()
     need_int = models.IntegerField(default=0)
@@ -92,9 +92,4 @@ class Graduation(models.Model):
     content = models.TextField()
     need_int = models.IntegerField(default=0)
     need_social = models.IntegerField(default=0)
-    need_exp = models.IntegerField(default=0)
-    need_total_exp = models.IntegerField(default=0)
-    order = models.FloatField()
-    
-    def __str__(self):
-        return self.name     
+   

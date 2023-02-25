@@ -4,7 +4,8 @@ from Mission_Book import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('',views.index, name='index'),
+    path('',views.index_null, name='index_null'),
+    path('index/<int:category>',views.index, name='index'),
     path('join/', views.join, name='join'),
     path('prolog/<int:num>',views.prolog, name='prolog'),
     path('success/', views.success, name='success'),

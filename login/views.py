@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import login, authenticate, logout
 from member.models import Member, Title, Graduation
+from checklist.models import Checklist,MemberChecklist
 from member.forms import MemberCreationForm, LoginForm, ChangeProfileForm, ChangeNameForm
 from django.views.generic import View
 from django.http import HttpResponse
@@ -10,7 +11,7 @@ import os, io
 import datetime
 
 
-this_year = 2022
+this_year = 2023
 # level = [0,10,15,20,25,30,35,40,45,50]
 
 def join(request):
@@ -19,6 +20,10 @@ def join(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
+            checklists = Checklist.objects.all()
+            for c in range(len(checklists)):
+                print("hi")
+                MemberChecklist.objects.create(member=request.user.user_id, checklist=checklists[c], status=-1)        
             return redirect('/prolog/1')
     else:
         form = MemberCreationForm()
@@ -34,16 +39,43 @@ def success(request):#테스트용
     }
     return render(request, 'success.html', {"context":context})
 
-def index(request):
+def index_null(request):
+    return index(request,1)
+
+def index(request, category):
+
     user_id = None
     if request.user.is_authenticated:
         user_id = request.user.user_id  # 혹은 request.user.username 등 로그인한 유저의 정보를 사용
     
     if user_id and datetime.datetime.now().year!=this_year:
         return redirect('/ending/1')
+    import pdb
+    checklists = MemberChecklist.objects.filter(member=user_id)
+    if category == 1:
+        some_missionlist_pro = checklists.filter(checklist__category=1, status=0)  # 카테고리가 1, status가 0인 미션 리스트를 가져옴
+        some_missionlist_pre = checklists.filter(checklist__category=1, status=-1) # 카테고리가 1, status가 -1인 미션 리스트를 가져옴
+        some_missionlist_pro.order_by('checklist__level')
+        some_missionlist_pre.order_by('checklist__level')
+        category_name = '학업'
+    elif category == 2:
+        some_missionlist_pro = checklists.filter(checklist__category=2, status=0)  # 카테고리가 2, status가 0인 미션 리스트를 가져옴
+        some_missionlist_pre = checklists.filter(checklist__category=2, status=-1)  # 카테고리가 2, status가 -1인 미션 리스트를 가져옴
+        some_missionlist_pro.order_by('checklist__level')
+        some_missionlist_pre.order_by('checklist__level')
+        category_name = '사교'
+    elif category == 3:
+        some_missionlist_pro = checklists.filter(checklist__category=3, status=0)  # 카테고리가 3, status가 0인 미션 리스트를 가져옴
+        some_missionlist_pre = checklists.filter(checklist__category=3, status=-1)  # 카테고리가 3, status가 -1인 미션 리스트를 가져옴
+        some_missionlist_pro.order_by('checklist__level')
+        some_missionlist_pre.order_by('checklist__level')
+        category_name = '경험'
+    else:
+        some_missionlist = None
+    context = {'some_missionlist_pre': some_missionlist_pre,
+               'some_missionlist_pro':some_missionlist_pro,'category_name':category_name}
+    return render(request, 'index.html', context)    
     
-    return render(request, 'index.html')
-
 
 class LoginView(View):
     def get(self, request):
@@ -59,7 +91,7 @@ class LoginView(View):
             # pdb.set_trace()
             if user is not None:
                 login(request, user)
-                return redirect('index')
+                return redirect('index_null')
             else:
                 form.add_error('user_id', '로그인 정보가 잘못되었습니다.')
         return render(request, 'login.html', {'form': form})
@@ -76,7 +108,7 @@ def is_login(request):
         user_id = request.user.user_id  # 혹은 request.user.username 등 로그인한 유저의 정보를 사용
 
     if not user_id:
-        return redirect('index')
+        return redirect('index_null')
     
     if datetime.datetime.now().year!=this_year:
         return redirect('/ending/1')
@@ -142,7 +174,7 @@ def setup(request):
             member = Member.objects.get(user_id=user_id)
             member.is_active = False
             member.save()
-            return redirect('index')
+            return redirect('index_null')
 
     form1 = ChangeProfileForm()
     form2 = ChangeNameForm()
@@ -208,7 +240,7 @@ def ending(request, num):
         user_id = request.user.user_id
 
     if not user_id and datetime.datetime.now().year==this_year:
-        return redirect('index')
+        return redirect('index_null')
 
     if num == 1:
         return render(request, "ending.html")
@@ -228,7 +260,7 @@ def prolog(request, num):
         user_id = request.user.user_id
 
     if not user_id and datetime.datetime.now().year!=this_year:
-        return redirect('index')
+        return redirect('index_null')
 
     if num == 1:
         return render(request, "prolog.html")

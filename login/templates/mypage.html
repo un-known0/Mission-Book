@@ -13,10 +13,10 @@
 
   <body>
     <header>
-      <a href="{% url 'index' %}"><img src="{% static 'misson.png' %}" alt="미션아이콘" width="25px" height="25px"/></a>
+      <a href="{% url 'index_null' %}"><img src="{% static 'misson.png' %}" alt="미션아이콘" width="25px" height="25px"/></a>
       <a href="{% url 'mypage' %}"><img src="{% static 'info_click.png' %}" alt="정보아이콘" width="25px" height="25px"/></a>
       <a href="{% url 'setup' %}"><img src="{% static 'setup.png' %}" alt="설정아이콘" width="25px" height="25px"/></a>
-    </header>
+  </header>
     <!-- 사용자 정보 -->
     <div id="userTab">
       <img id="userImg" src="/media/{{ user.profile_image }}" alt="사용자 이미지" />

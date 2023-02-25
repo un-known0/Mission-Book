@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     
     'member',
     'login',
+    'checklist',
 ]
 
 MIDDLEWARE = [
