@@ -42,7 +42,7 @@ def index(request, category):
     
     if user_id and datetime.datetime.now().year!=this_year:
         return redirect('/ending/1')
-    import pdb
+    
     checklists = MemberChecklist.objects.filter(member=user_id)
     if category == 1:
         some_missionlist_pro = checklists.filter(checklist__category=1, status=0)  # 카테고리가 1, status가 0인 미션 리스트를 가져옴
@@ -126,10 +126,27 @@ def mypage(request):
     for title in titles:
         if request.user.can_select_title(title):
             selectable_titles.append(title)
+            
+    int_num = 0
+    social_num = 0
+    exp_num = 0
+    
+    checklists = MemberChecklist.objects.filter(member=request.user.user_id, status = 1)
+    for check in checklists:
+        if check.checklist.category == 1:
+            int_num+=1
+        elif check.checklist.category == 2:
+            social_num+=1
+        else: 
+            exp_num+=1
+
 
     context = {
         'selectable_titles': selectable_titles,
-        'exp_per':str(int((request.user.total_exp%1)*100))
+        'exp_per':str(int((request.user.total_exp%1)*100)),
+        'int_num' : int_num,
+        'social_num' : social_num,
+        'exp_num' : exp_num
     }
     return render(request, 'mypage.html', context)
 
