@@ -46,9 +46,9 @@
     
             <p class="menu-title">💪🏻 현재 스탯</p>
             <div class="menu-detail">
-              <p>학업&nbsp;&nbsp;<span id="study">{{user.int_stat}}</span></p>
-              <p>사교&nbsp;&nbsp;<span id="social">{{user.social_stat}}</span></p>
-              <p>경험&nbsp;&nbsp;<span id="exp">{{user.exp_stat}}</span></p>
+              <p>학업&nbsp;&nbsp;<span id="study">{{user.int_stat|add:0}}</span></p>
+              <p>사교&nbsp;&nbsp;<span id="social">{{user.social_stat|add:0}}</span></p>
+              <p>경험&nbsp;&nbsp;<span id="exp">{{user.exp_stat|add:0}}</span></p>
             </div>
             <br />
     

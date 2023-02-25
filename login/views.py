@@ -12,7 +12,7 @@ import datetime
 
 
 this_year = 2023
-# level = [0,10,15,20,25,30,35,40,45,50]
+
 
 def join(request):
     if request.method == 'POST':
@@ -80,7 +80,6 @@ class LoginView(View):
             user_id = form.cleaned_data['user_id']
             password = form.cleaned_data['password']
             user = authenticate(request, user_id=user_id, password=password)
-            # pdb.set_trace()
             if user is not None:
                 login(request, user)
                 return redirect('index_null')
@@ -258,10 +257,23 @@ def ending(request, num):
     elif num == 2:
         return render(request, "ending2.html")
     elif num == 3:
+        int_num = 0
+        social_num = 0
+        exp_num = 0
+        
+        checklists = MemberChecklist.objects.filter(member=request.user.user_id, status = 1)
+        for check in checklists:
+            if check.checklist.category == 1:
+                int_num+=1
+            elif check.checklist.category == 2:
+                social_num+=1
+            else: 
+                exp_num+=1
+        total_num = int_num+social_num+exp_num
         graduation = Graduation.objects.all().order_by('-order')
         for g in graduation:
             if request.user.can_graduation(g):
-                return render(request, "ending3.html", {"graduation": g})
+                return render(request, "ending3.html", {"graduation": g, "int_num":int_num,"social_num":social_num,"exp_num":exp_num,"total_num":total_num})
         
 
 
